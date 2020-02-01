@@ -1,13 +1,17 @@
 <!doctype html>
 <html>
    <body>
-      <table border = 1>
+      <form action = "http://localhost:5000/">
+         <table border = 1>
          {% for i in result %}
             <tr>
                <th> {{ i }} </th>
                <td> {{ result[i] }} </td>
             </tr>
          {% endfor %}
-      </table>
+         </table>
+         <p><input type = "submit" value = "Try Again" /></p>
+      </form>
+
    </body>
 </html>
