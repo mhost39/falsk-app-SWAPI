@@ -1,12 +1,6 @@
-FROM ubuntu:16.04
-
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
-
-WORKDIR /app 
-RUN pip install Flask==1.1.1
+FROM python:3.6
 COPY . /app
-
-ENTRYPOINT [ "python" ]
-
-CMD [ "app.py" ]
+WORKDIR /app
+RUN pip3 install -r requirements.txt
+ENTRYPOINT ["python"]
+CMD ["app.py"]

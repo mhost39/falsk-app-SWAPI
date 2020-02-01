@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import swapi
 import json
 import requests
 import time
@@ -64,4 +63,4 @@ def get_films(films):
     return result
 
 if __name__ == '__main__':
-   app.run(debug = True)
+   app.run(debug = True,  host='0.0.0.0')
