@@ -7,7 +7,7 @@ import functools
 
 app = Flask(__name__)
 
-url = "https://swapi.co/api/people/"
+url = "https://swapi.co/api/people/?search="
 def timer(func):
     @functools.wraps(func)
     def wrapper_timer(*args, **kwargs):
@@ -27,27 +27,29 @@ def hello_world():
 @timer
 def result():
     name = request.form['Name']
-    character = get_charcter(name)
-    if (character == "false"):
+    characters = get_charcters(name)
+    if (characters == "false"):
         return render_template("not-found.html")
-    result = generate_result(character)
+    result = generate_result(characters['results'])
     return render_template("result.html" , result = result)
-def get_charcter(name):
-    characters = requests.get(url = url).json()['results']
+def get_charcters(name):
+    characters = requests.get(url = url+name).json()  #['results']
+    if (characters["count"] == 0):
+        return "false"
+    return characters
+def generate_result(characters):
+    result_list = []
     for c in characters:
-        if (c['name'] == name):
-            return c
-    return "false"
-def generate_result(character):
-    dic = {}
-    dic['Full Name'] = character['name']
-    dic['Gender'] = character['gender']
-    species_and_lifespan = get_species_and_lifespan(character['species'])
-    dic['Species Name'] = species_and_lifespan['Species']
-    dic['Average Lifespan'] = species_and_lifespan['lifespan']
-    dic['Home Planet'] = get_planet(character['homeworld'])
-    dic['List Of Movies'] = get_films(character['films'])
-    return dic
+        dic = {}
+        dic['Full Name'] = c['name']
+        dic['Gender'] = c['gender']
+        species_and_lifespan = get_species_and_lifespan(c['species'])
+        dic['Species Name'] = species_and_lifespan['Species']
+        dic['Average Lifespan'] = species_and_lifespan['lifespan']
+        dic['Home Planet'] = get_planet(c['homeworld'])
+        dic['List Of Movies'] = get_films(c['films'])
+        result_list.append(dic)
+    return result_list
 def get_species_and_lifespan(s_url):
     req = requests.get(url = s_url[0]).json()
     dic = {}

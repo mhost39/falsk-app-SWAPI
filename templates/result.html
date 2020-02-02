@@ -2,14 +2,17 @@
 <html>
    <body>
       <form action = "http://localhost:5000/">
-         <table border = 1>
-         {% for i in result %}
-            <tr>
-               <th> {{ i }} </th>
-               <td> {{ result[i] }} </td>
-            </tr>
+         {% for c in result %}
+            <table border = 1>
+            {% for i in c %}
+               <tr>
+                  <th> {{ i }} </th>
+                  <td> {{ c[i] }} </td>
+               </tr>
+            {% endfor %}
+            </table>
+            <br>
          {% endfor %}
-         </table>
          <p><input type = "submit" value = "Try Again" /></p>
       </form>
 
