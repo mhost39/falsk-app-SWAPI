@@ -44,7 +44,7 @@
 ## case 6
     name: r
     return:
-        48 character (all names that contain 'r')
+        10 character (all names that contain 'r')
     time taken : 65 secs
     
 
