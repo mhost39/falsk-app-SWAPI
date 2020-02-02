@@ -1,0 +1,53 @@
+## case 1 
+    name : Luke
+    return :
+        Full Name	Luke Skywalker
+        Gender	male
+        Species Name	Human
+        Average Lifespan	120
+        Home Planet	Tatooine
+        List Of Movies	['The Empire Strikes Back', 'Revenge of the Sith', 
+            'Return of the Jedi', 'A New Hope', 'The Force Awakens']
+    time taken : 6 secs
+## case 2
+    name: vader
+    return: 
+        Full Name	Darth Vader
+        Gender	male
+        Species Name	Human
+        Average Lifespan	120
+        Home Planet	Tatooine
+        List Of Movies	['The Empire Strikes Back', 'Revenge of the Sith', 
+            'Return of the Jedi', 'A New Hope']
+    time taken : 5 secs
+
+## case 3
+    name: Darklighter
+    return:
+        Full Name	Biggs Darklighter
+        Gender	male
+        Species Name	Human
+        Average Lifespan	120
+        Home Planet	Tatooine
+        List Of Movies	['A New Hope']
+    time taken : 4 secs
+## case 4 
+    name: hassan
+    return:
+        Name Not Found Try again
+    time taken : 1 secs
+## case 5
+    name: m
+    return:
+        10 character (all names that contain 'm')
+    time taken : 39 secs
+## case 6
+    name: r
+    return:
+        48 character (all names that contain 'r')
+    time taken : 65 secs
+    
+
+
+
+
