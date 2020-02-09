@@ -3,7 +3,8 @@ import json
 import requests
 import time
 import functools
-
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)
 
@@ -59,9 +60,35 @@ def get_species_and_lifespan(s_url):
 def get_planet(p_url):
     return requests.get(url = p_url).json()['name']
 def get_films(films):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    future = asyncio.ensure_future(get_data_asynchronous(films))
+    loop.run_until_complete(future)
+
+    return future.result()
+
+def fetch(session, film):
+    with session.get(film) as response:
+        data = response.text
+        return data
+
+async def get_data_asynchronous(films):
     result = []
-    for f_url in films:
-        result.append(requests.get(url = f_url).json()['title'])
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        with requests.Session() as session:
+            # Set any session parameters here before calling `fetch`
+            loop = asyncio.get_event_loop()
+            tasks = [
+                loop.run_in_executor(
+                    executor,
+                    fetch,
+                    *(session, film) # Allows us to pass in multiple arguments to `fetch`
+                )
+                for film in films
+            ]
+            for response in await asyncio.gather(*tasks):
+                data = response.split('"')
+                result.append(data[3])
     return result
 
 if __name__ == '__main__':
